@@ -37,11 +37,11 @@ exports.handler = (event, context, callback) => {
     // If request contains no Source cookie, do nothing and forward the response as-is
     console.log('No Source cookie found');
     callback(null, response);
-}
+};
 
 // Add set-cookie header (including path)
 const setCookie = function(response, cookie) {
     const cookieValue = `${cookie}; Path=${cookiePath}`;
     console.log(`Setting cookie ${cookieValue}`);
     response.headers['set-cookie'] = [{ key: "Set-Cookie", value: cookieValue }];
-}
+};

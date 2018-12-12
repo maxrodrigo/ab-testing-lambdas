@@ -55,4 +55,4 @@ const decideSource = function(headers) {
         }
     }
     console.log('No Source cookie found (Origin undecided)');
-}
+};
