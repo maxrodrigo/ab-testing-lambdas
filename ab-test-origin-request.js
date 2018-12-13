@@ -1,8 +1,9 @@
 'use strict';
 
-const sourceCoookie = 'X-Source';
-const sourceMain = 'yd-v1';
-const sourceExperiment = 'yd-v2';
+const sourceCookie = '_yd_ab_source';
+const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
+const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
+
 const experimentDomainName = '';
 const experimentAvailablePaths = ['/']
 
