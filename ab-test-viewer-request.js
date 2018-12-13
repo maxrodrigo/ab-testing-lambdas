@@ -27,11 +27,19 @@ const setCookie = (cookies, name, value) => {
     for (let i = 0; i < cookies.length; i++) {
         if (cookies[i].value.indexOf(name) >= 0) {
             found = true;
-            cookies[i].value.replace(new RegExp(`${name}=[^;]+`, 'gi'), cookie);
+            cookies[i].value.replace(new RegExp(`${name}=[^;]+`), cookie);
         }
     }
     if (!found) {
         cookies.push({key: 'Cookie', value: cookie});
+    }
+};
+
+const deleteCookie = (cookies, name) => {
+    for (let i = 0; i < cookies.length; i++) {
+        if (cookies[i].value.indexOf(name) >= 0) {
+            cookies[i].value.replace(new RegExp(`${name}=[^;]+;?`), '');
+        }
     }
 };
 
@@ -51,6 +59,7 @@ exports.handler = (event, context, callback) => {
         }
     } else {
         setCookie(headers.cookie, returningUserCookie, experimentVersion);
+        deleteCookie(headers.cookie, sourceCookie);
     }
     callback(null, request);
 };
