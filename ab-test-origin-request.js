@@ -3,8 +3,8 @@
 const sourceCoookie = 'X-Source';
 const sourceMain = 'yd-v1';
 const sourceExperiment = 'yd-v2';
-const experimentBucketName = 'wordfinder-web.s3.amazonaws.com';
-const experimentBucketRegion = 'us-east-1';
+const experimentDomainName = '';
+const experimentAvailablePaths = ['/']
 
 // Origin Request handler
 exports.handler = (event, context, callback) => {
@@ -14,20 +14,23 @@ exports.handler = (event, context, callback) => {
     const source = decideSource(headers);
 
     // If Source is Experiment, change Origin and Host header
-    if ( source === sourceExperiment ) {
+    if ( source === sourceExperiment && experimentAvailablePaths.indexOf(request.uri) !== -1) {
         console.log('Setting Origin to experiment bucket');
         // Specify Origin
         request.origin = {
-            s3: {
-                authMethod: 'none',
-                domainName: experimentBucketName,
+            custom: {
+                domainName: experimentDomainName,
+                port: 80,
+                protocol: 'http',
                 path: '',
-                region: experimentBucketRegion
+                sslProtocols: ['TLSv1', 'TLSv1.1'],
+                readTimeout: 5,
+                keepaliveTimeout: 5,
+                customHeaders: {}
             }
         };
 
-        // Also set Host header to prevent “The request signature we calculated does not match the signature you provided” error
-        headers['host'] = [{key: 'host', value: experimentBucketName }];
+        request.headers['host'] = [{ key: 'host', value: experimentDomainName }];
     }
     // No need to change anything if Source was Main or undefined
 
