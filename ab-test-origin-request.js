@@ -41,8 +41,8 @@ exports.handler = (event, context, callback) => {
 
 // Decide source based on source cookie.
 const decideSource = function(headers) {
-    const sourceMainCookie = `${sourceCoookie}=${sourceMain}`;
-    const sourceExperimenCookie = `${sourceCoookie}=${sourceExperiment}`;
+    const sourceMainCookie = `${sourceCookie}=${sourceMain}`;
+    const sourceExperimenCookie = `${sourceCookie}=${sourceExperiment}`;
 
     // Remember a single cookie header entry may contains multiple cookies
     if (headers.cookie) {

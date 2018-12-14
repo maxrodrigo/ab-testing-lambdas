@@ -11,8 +11,8 @@ exports.handler = (event, context, callback) => {
     const requestHeaders = request.headers;
     const response = event.Records[0].cf.response;
 
-    const sourceMainCookie = `${sourceCoookie}=${sourceMain}`;
-    const sourceExperimenCookie = `${sourceCoookie}=${sourceExperiment}`;
+    const sourceMainCookie = `${sourceCookie}=${sourceMain}`;
+    const sourceExperimenCookie = `${sourceCookie}=${sourceExperiment}`;
 
     // Look for Source cookie
     // A single cookie header entry may contains multiple cookies, so it looks for a partial match
