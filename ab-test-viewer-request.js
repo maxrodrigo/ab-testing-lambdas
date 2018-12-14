@@ -56,6 +56,8 @@ exports.handler = (event, context, callback) => {
     const request = event.Records[0].cf.request;
     const headers = request.headers;
 
+    headers.cookie = headers.cookie || [];
+
     // Look for source cookie
     if (hasCookie(headers.cookie, returningUserCookie, experimentVersion)) {
         if (!hasCookie(headers.cookie, sourceCookie)) {
