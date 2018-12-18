@@ -12,5 +12,5 @@ AWS Lambdas for A/B Testing
 ## Cookie switcher bookmarklet
 
 ```js
-javascript:(function(){var c=document.cookie.split("; ");for(var i in c){if(c[i].indexOf("X-Source")>=0){document.cookie="X-Source="+(c[i].indexOf("yd-v1")>=0?"yd-v2":"yd-v1")+";path=/";break}location.reload()}})()
+javascript:(function(){var c=document.cookie.split("; ");for(var i in c){if(c[i].indexOf("_yd_ab_source")>=0){document.cookie="_yd_ab_source="+(c[i].indexOf("AyzHWHBd")>=0?"G2bHEHgG":"AyzHWHBd")+";path=/";break}location.reload()}})()
 ```
