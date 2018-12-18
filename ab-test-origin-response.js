@@ -1,9 +1,24 @@
 'use strict';
 
+const returningUserCookie = '_yd_ab_ret';
+const experimentVersion = 'DA6gHVdJ'; // hashids (1,1)
+
 const sourceCookie = '_yd_ab_source';
 const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
 const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
+
 const cookiePath = '/';
+const cookieExpires = "Sat, 26 Apr 1980 11:29:17 GMT"
+
+const hasCookie = (cookies, name, value = null) => {
+    const pattern = value ? `${name}=${value}` : `${name}`;
+    for (let i = 0; i < cookies.length; i++) {
+        if (cookies[i].value.indexOf(pattern) >= 0) {
+            return true;
+        }
+    }
+    return false;
+};
 
 // Origin Response handler
 exports.handler = (event, context, callback) => {
@@ -11,37 +26,36 @@ exports.handler = (event, context, callback) => {
     const requestHeaders = request.headers;
     const response = event.Records[0].cf.response;
 
-    const sourceMainCookie = `${sourceCookie}=${sourceMain}`;
-    const sourceExperimenCookie = `${sourceCookie}=${sourceExperiment}`;
+    setCookie(response, `${returningUserCookie}=${experimentVersion}`);
 
-    // Look for Source cookie
-    // A single cookie header entry may contains multiple cookies, so it looks for a partial match
-    if (requestHeaders.cookie) {
-        for (let i = 0; i < requestHeaders.cookie.length; i++) {
-            // ...ugly but simple enough for now
-            if (requestHeaders.cookie[i].value.indexOf(sourceExperimenCookie) >= 0) {
-                console.log('Experiment Source cookie found');
-                setCookie(response, sourceExperimenCookie);
-                callback(null, response);
-                return;
-            }
-            if (requestHeaders.cookie[i].value.indexOf(sourceMainCookie) >= 0) {
-                console.log('Main Source cookie found');
-                setCookie(response, sourceMainCookie);
-                callback(null, response);
-                return;
-            }
-        }
+    if (hasCookie(requestHeaders.cookie, sourceCookie, sourceMain)) {
+        console.log('Main Source cookie found');
+        setCookie(response, `${sourceCookie}=${sourceMain}`);
+    }else{
+        deleteCookie(response, sourceCookie);
     }
 
-    // If request contains no Source cookie, do nothing and forward the response as-is
-    console.log('No Source cookie found');
+    if (hasCookie(requestHeaders.cookie, sourceCookie, sourceExperiment)) {
+        console.log('Experiment Source cookie found');
+        setCookie(response, `${sourceCookie}=${sourceExperiment}`);
+    }else{
+        deleteCookie(response, sourceCookie);
+    }
+
     callback(null, response);
+    return;
 };
 
 // Add set-cookie header (including path)
 const setCookie = function(response, cookie) {
     const cookieValue = `${cookie}; Path=${cookiePath}`;
     console.log(`Setting cookie ${cookieValue}`);
+    response.headers['set-cookie'] = [{ key: "Set-Cookie", value: cookieValue }];
+};
+
+// Add set-cookie header (including path)
+const deleteCookie = function(response, cookie) {
+    console.log(`Deleting cookie ${cookie}`);
+    const cookieValue = `${cookie}; Path=${cookiePath}; Expires=${cookieExpires}`;
     response.headers['set-cookie'] = [{ key: "Set-Cookie", value: cookieValue }];
 };
