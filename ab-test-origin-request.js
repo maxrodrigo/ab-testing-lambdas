@@ -4,8 +4,7 @@ const sourceCookie = '_yd_ab_source';
 const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
 const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
 
-const experimentDomainName = '';
-const experimentAvailablePaths = ['/']
+const experimentDomainName = 'yourdictionary-web.s3-website-us-east-1.amazonaws.com';
 
 // Origin Request handler
 exports.handler = (event, context, callback) => {
@@ -15,8 +14,7 @@ exports.handler = (event, context, callback) => {
     const source = decideSource(headers);
 
     // If Source is Experiment, change Origin and Host header
-    if ( source === sourceExperiment && experimentAvailablePaths.indexOf(request.uri) !== -1) {
-        console.log('Setting Origin to experiment bucket');
+    if ( source === sourceExperiment && request.uri == '/' && headers.host[0].value == 'www.yourdictionary.com') {
         // Specify Origin
         request.origin = {
             custom: {
@@ -38,7 +36,6 @@ exports.handler = (event, context, callback) => {
     callback(null, request);
 };
 
-
 // Decide source based on source cookie.
 const decideSource = function(headers) {
     const sourceMainCookie = `${sourceCookie}=${sourceMain}`;
@@ -49,14 +46,11 @@ const decideSource = function(headers) {
         // ...ugly but simple enough for now
         for (let i = 0; i < headers.cookie.length; i++) {
             if (headers.cookie[i].value.indexOf(sourceExperimenCookie) >= 0) {
-                console.log('Experiment Source cookie found');
                 return sourceExperiment;
             }
             if (headers.cookie[i].value.indexOf(sourceMainCookie) >= 0) {
-                console.log('Main Source cookie found');
                 return sourceMain;
             }
         }
     }
-    console.log('No Source cookie found (Origin undecided)');
 };
