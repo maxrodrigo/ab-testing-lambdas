@@ -1,20 +1,15 @@
 'use strict';
 
-const returningUserCookie = '_yd_ab_ret';
-const experimentVersion = 'DA6gHVdJ'; // hashids (1,1)
-
 const sourceCookie = '_yd_ab_source';
-const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
-const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
+const sourceMain = 'G2bHPu5G'; // hashids (1,2,1)
+const sourceExperiment = '0rlHlu9d'; // hashids (1,2,2)
 
 const cookiePath = '/';
 
 const hasCookie = (cookies, name, value = null) => {
     const pattern = value ? `${name}=${value}` : `${name}`;
-    console.log(`Function hasCookie ${pattern} ?`);
     for (let i = 0; i < cookies.length; i++) {
         if (cookies[i].value.indexOf(pattern) >= 0) {
-            console.log(`${pattern} found.`);
             return true;
         }
     }
@@ -26,8 +21,6 @@ exports.handler = (event, context, callback) => {
     const request = event.Records[0].cf.request;
     const requestHeaders = request.headers;
     const response = event.Records[0].cf.response;
-
-    setCookie(response, `${returningUserCookie}=${experimentVersion}`);
 
     if (hasCookie(requestHeaders.cookie, sourceCookie, sourceMain)) {
         setCookie(response, `${sourceCookie}=${sourceMain}`);

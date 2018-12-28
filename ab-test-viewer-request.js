@@ -1,13 +1,10 @@
 'use strict';
 
-const returningUserCookie = '_yd_ab_ret';
-const experimentVersion = 'DA6gHVdJ'; // hashids (1,1)
-
 const sourceCookie = '_yd_ab_source';
-const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
-const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
+const sourceMain = 'G2bHPu5G'; // hashids (1,2,1)
+const sourceExperiment = '0rlHlu9d'; // hashids (1,2,2)
 
-const experimentTraffic = 0.05;
+const experimentTraffic = 0.1;
 
 const hasCookie = (cookies, name, value = null) => {
     const pattern = value ? `${name}=${value}` : `${name}`;
@@ -38,17 +35,6 @@ const setCookie = (cookies, name, value) => {
     }
 };
 
-const deleteCookie = (cookies, name) => {
-    for (let i = 0; i < cookies.length; i++) {
-        if (cookies[i].value.indexOf(name) >= 0) {
-            cookies[i].value = cookies[i].value.replace(
-                new RegExp(`${name}=[^;]+;?`),
-                '',
-            );
-        }
-    }
-};
-
 // Viewer request handler
 exports.handler = (event, context, callback) => {
     const request = event.Records[0].cf.request;
@@ -56,18 +42,13 @@ exports.handler = (event, context, callback) => {
 
     headers.cookie = headers.cookie || [];
 
-    // Look for source cookie
-    if (hasCookie(headers.cookie, returningUserCookie, experimentVersion)) {
-        if (!hasCookie(headers.cookie, sourceCookie) && request.uri == '/') {
-            const source =
-                Math.random() < experimentTraffic
-                    ? sourceExperiment
-                    : sourceMain;
-            setCookie(headers.cookie, sourceCookie, source);
-        }
-    } else {
-        setCookie(headers.cookie, returningUserCookie, experimentVersion);
-        deleteCookie(headers.cookie, sourceCookie);
+    if (
+        !hasCookie(headers.cookie, sourceCookie, sourceMain) &&
+        !hasCookie(headers.cookie, sourceCookie, sourceExperiment)
+    ) {
+        const source =
+            Math.random() < experimentTraffic ? sourceExperiment : sourceMain;
+        setCookie(headers.cookie, sourceCookie, source);
     }
     callback(null, request);
 };

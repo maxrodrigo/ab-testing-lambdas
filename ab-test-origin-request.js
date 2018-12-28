@@ -1,8 +1,8 @@
 'use strict';
 
 const sourceCookie = '_yd_ab_source';
-const sourceMain = 'AyzHWHBd'; // hashids (1,1,1)
-const sourceExperiment = 'G2bHEHgG'; // hashids (1,1,2)
+const sourceMain = 'G2bHPu5G'; // hashids (1,2,1)
+const sourceExperiment = '0rlHlu9d'; // hashids (1,2,2)
 
 const experimentDomainName = 'yourdictionary-web.s3-website-us-east-1.amazonaws.com';
 
