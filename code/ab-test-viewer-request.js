@@ -1,8 +1,8 @@
 'use strict';
 
-const sourceCookie = {cookie_name};
-const sourceMain = {source_main};
-const sourceExperiment = {source_experiment};
+const sourceCookie = "{cookie_name}";
+const sourceMain = "{source_main}";
+const sourceExperiment = "{source_experiment}";
 const experimentTraffic = {experimentTraffic};
 
 const hasCookie = (cookies, name, value = null) => {

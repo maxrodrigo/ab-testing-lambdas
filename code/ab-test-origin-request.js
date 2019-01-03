@@ -1,9 +1,9 @@
 'use strict';
 
-const sourceCookie = {cookie_name};
-const sourceMain = {source_main};
-const sourceExperiment = {source_experiment};
-const experimentDomainName = {experiment_domain_name};
+const sourceCookie = "{cookie_name}";
+const sourceMain = "{source_main}";
+const sourceExperiment = "{source_experiment}";
+const experimentDomainName = "{experiment_domain_name}";
 
 // Origin Request handler
 exports.handler = (event, context, callback) => {
