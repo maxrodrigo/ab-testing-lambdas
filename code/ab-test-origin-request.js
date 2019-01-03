@@ -1,10 +1,9 @@
 'use strict';
 
-const sourceCookie = '_yd_ab_source';
-const sourceMain = 'G2bHPu5G'; // hashids (1,2,1)
-const sourceExperiment = '0rlHlu9d'; // hashids (1,2,2)
-
-const experimentDomainName = 'yourdictionary-web.s3-website-us-east-1.amazonaws.com';
+const sourceCookie = "{cookie_name}";
+const sourceMain = "{source_main}";
+const sourceExperiment = "{source_experiment}";
+const experimentDomainName = "{experiment_domain_name}";
 
 // Origin Request handler
 exports.handler = (event, context, callback) => {
