@@ -1,4 +1,4 @@
-javascript: (function() {
+(function() {
     var c = document.cookie.split("; ");
     var cn = "{cookie_name}";
     var sa = "{source_main}";
