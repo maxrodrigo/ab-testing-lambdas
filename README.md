@@ -1,6 +1,6 @@
 # Lambdas@Edge for A/B Testing 
 
-![bookmarklet](https://img.shields.io/badge/dynamic/json.svg?label=bookmarklet&url=https://raw.githubusercontent.com/maxrodrigo/ab-testing-lambdas/master/dist/build.json&query=$.source_experiment&colorB=green&prefix=exp:&style=for-the-badge)
+[![bookmarklet](https://img.shields.io/badge/dynamic/json.svg?label=bookmarklet&url=https://raw.githubusercontent.com/maxrodrigo/ab-testing-lambdas/master/dist/build.json&query=$.source_experiment&colorB=green&prefix=exp:&style=for-the-badge)](https://raw.githubusercontent.com/maxrodrigo/ab-testing-lambdas/master/dist/bookmarklet.js)
 
 # Considerations
 
