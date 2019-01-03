@@ -1,0 +1,1 @@
+javascript:!function(){var o=document.cookie.split("; "),i="_yd_ab_source",n="G2bHPu5G";for(var a in o)if(o[a].indexOf(i)>=0){document.cookie=i+"="+(o[a].indexOf(n)>=0?"0rlHlu9d":n)+"; Path=/; Domain=.yourdictionary.com";break}location.reload()}();

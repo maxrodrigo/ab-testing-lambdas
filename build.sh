@@ -11,15 +11,15 @@
 #       NOTES:  ---
 #===============================================================================
 #
-function sed_placeholders(){
+sed_placeholders(){
   for k in "${(@k)ph}"; do
     v=${ph[$k]};
     sed -i "" -e "s/{$k}/$v/g" $1
   done
 }
 
-
-build_folder='./build';
+build_folder='./dist';
+build_jsonfile=$build_folder"/build.json"
 
 # define placeholders
 typeset -A ph
@@ -48,10 +48,18 @@ if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
     sed_placeholders $built_jsf;
   done
 
-  echo "\nGenerating bookmarklet..."
   func_min=$(curl -X POST -s --data-urlencode "input@$build_folder/bookmarklet.js" https://javascript-minifier.com/raw);
   bookmarklet="javascript:"$func_min;
-  echo $bookmarklet;
+  echo $bookmarklet > $build_folder/bookmarklet.js;
+  echo "\nBookmarklet generated: $build_folder/bookmarklet.js"
+
+  for k in "${(@k)ph}"; do
+    v=${ph[$k]};
+    build_json="$build_json\"$k\":\"$v\","
+  done
+  # build json and remove last comma from variables
+  echo "{${build_json: : -1}}" > $build_jsonfile
+  echo "\nBuild json file generated: $build_jsonfile"
 
   echo "All done! 🍰"
 fi
