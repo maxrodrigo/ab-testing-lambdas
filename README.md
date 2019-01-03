@@ -8,9 +8,3 @@ AWS Lambdas for A/B Testing
 - Logs are region based. If you can see them look into a different region.
 - When pointing to an S3 avoid `Host` on `Whitelist Headers`
     > If the bucket has a different name than the domain name
-
-## Cookie switcher bookmarklet
-
-```js
-javascript:(function(){var c=document.cookie.split("; ");for(var i in c){if(c[i].indexOf("_yd_ab_source")>=0){document.cookie="_yd_ab_source="+(c[i].indexOf("AyzHWHBd")>=0?"G2bHEHgG":"AyzHWHBd")+";path=/";break}location.reload()}})()
-```
