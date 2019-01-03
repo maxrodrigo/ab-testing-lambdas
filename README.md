@@ -1,9 +1,8 @@
-# ab-testing-lambdas
-AWS Lambdas for A/B Testing 
+# AWS Lambdas@Edge for A/B Testing 
 
-<a href='javascript:!function(){var o=document.cookie.split(\"; \"),i=\"_yd_ab_source\",n=\"G2bHPu5G\";for(var a in o)if(o[a].indexOf(i)>=0){document.cookie=i+\"=\"+(o[a].indexOf(n)>=0?\"0rlHlu9d\":n)+\"; Path=\/; Domain=.yourdictionary.com\";break}location.reload()}();'>
-![bookmarklet](https://img.shields.io/badge/bookmarklet-0rlHlu9d-green.svg)
-</a>
+```js
+javascript:!function(){var o=document.cookie.split(\"; \"),i=\"_yd_ab_source\",n=\"G2bHPu5G\";for(var a in o)if(o[a].indexOf(i)>=0){document.cookie=i+\"=\"+(o[a].indexOf(n)>=0?\"0rlHlu9d\":n)+\"; Path=\/; Domain=.yourdictionary.com\";break}location.reload()}();
+```
 
 # Considerations
 
