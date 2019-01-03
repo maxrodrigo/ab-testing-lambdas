@@ -1,10 +1,8 @@
 'use strict';
 
-const sourceCookie = '_yd_ab_source';
-const sourceMain = 'G2bHPu5G'; // hashids (1,2,1)
-const sourceExperiment = '0rlHlu9d'; // hashids (1,2,2)
-
-const cookiePath = '/';
+const sourceCookie = {cookie_name};
+const sourceMain = {source_main};
+const sourceExperiment = {source_experiment};
 
 const hasCookie = (cookies, name, value = null) => {
     const pattern = value ? `${name}=${value}` : `${name}`;
@@ -36,6 +34,6 @@ exports.handler = (event, context, callback) => {
 
 // Add set-cookie header (including path)
 const setCookie = function(response, cookie) {
-    const cookieValue = `${cookie}; Path=${cookiePath}; Domain=.yourdictionary.com`;
+    const cookieValue = `${cookie}; Path=/; Domain=.yourdictionary.com`;
     response.headers['set-cookie'] = [{ key: "Set-Cookie", value: cookieValue }];
 };
