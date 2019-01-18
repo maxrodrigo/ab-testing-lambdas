@@ -35,12 +35,12 @@ echo "***************************************"
 for k in "${(@k)ph}"; do echo $k: ${ph[$k]}; done
 echo "***************************************"
 
-read "CONFIRM?Confirm? [Y/n]"
-CONFIRM=${CONFIRM:l} #tolower
-if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+read -q "response?Confirm ? [y/N] "
+case "$response" in [yY][eE][sS]|[yY])
   mkdir -p $build_folder;
 
-  echo "Processing files..."
+  echo "\n\nProcessing files...\n"
+
   for jsf in ./code/*.js; do
     echo "> "$(basename $jsf);
     cp $jsf $build_folder;
@@ -59,7 +59,11 @@ if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
   done
   # build json and remove last comma from variables
   echo "{${build_json: : -1}}" > $build_jsonfile
-  echo "\nBuild json file generated: $build_jsonfile"
+  echo "\nBuild file generated: $build_jsonfile"
 
-  echo "All done! 🍰"
-fi
+  echo "\nAll done! 🍰"
+  ;;
+*)
+  echo "Nothing to do. ⭐️"
+    ;;
+esac
