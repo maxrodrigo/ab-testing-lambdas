@@ -27,7 +27,7 @@ typeset -A ph
 ph[cookie_name]='_yd_ab_source';
 ph[source_main]='G2bHPu5G';
 ph[source_experiment]='0rlHlu9d';
-ph[experiment_traffic]=0.1;
+ph[experiment_traffic]=0.5;
 ph[experiment_domain_name]="yourdictionary-web.s3-website-us-east-1.amazonaws.com"
 
 # RUN!

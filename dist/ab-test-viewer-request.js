@@ -3,7 +3,7 @@
 const sourceCookie = "_yd_ab_source";
 const sourceMain = "G2bHPu5G";
 const sourceExperiment = "0rlHlu9d";
-const experimentTraffic = 0.1;
+const experimentTraffic = 0.5;
 
 const hasCookie = (cookies, name, value = null) => {
     const pattern = value ? `${name}=${value}` : `${name}`;
