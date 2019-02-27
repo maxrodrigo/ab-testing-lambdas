@@ -16,6 +16,15 @@ build_folder='./dist';
 build_jsonfile=$build_folder"/build.json"
 config_file="./conf"
 
+trim() {
+  local var="$*"
+  # remove leading whitespace characters
+  var="${var#"${var%%[![:space:]]*}"}"
+  # remove trailing whitespace characters
+  var="${var%"${var##*[![:space:]]}"}"   
+  echo -n "$var"
+}
+
 ph_substitute(){
   for k in "${!ph[@]}"; do
     v=${ph[$k]};
@@ -24,7 +33,7 @@ ph_substitute(){
 }
 
 # define placeholders
-declare -A ph; while read line; do ph[${line%:*}]=${line#*:}; done < $config_file
+declare -A ph; while read line; do ph[${line%:*}]=`trim ${line#*:}`; done < $config_file
 
 # RUN!
 echo "***************************************"
