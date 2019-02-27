@@ -1,4 +1,4 @@
-# Lambdas@Edge for A/B Testing 
+# A/B Testing Lambdas@Edge 
 
 # Why?
 As mentioned in the [documentation for CloudFront Lambdas limitations](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-requirements-limits.html#lambda-requirements-lambda-function-configuration)
@@ -23,9 +23,10 @@ Along with the function files, 2 other files are built:
 
 ## Usage
 
-1. Rename `conf.sample` to `conf`.
-1. Update your configuration file with the right values.
-1. run `./build.sh` and follow the steps.
+1. Rename `conf.sample` to `conf` and update its values.
+1. run `./build.sh`. Functions will be automatically placed into the `dist` folder.
+1. [Create the lmabda functions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-how-it-works-tutorial.html) with the generated code.
+1. **RUN TESTS!** 
 1. Done! :cake:
 
 ## Bookmarklet shield
@@ -41,6 +42,7 @@ If you fork this repository and commit your `dist` folder here's a [shield.io](h
 - Logs are region based. If you can't find them look into a closer region.
 - When pointing to an S3 avoid `Host` on `Whitelist Headers`
     > If the bucket has a different name than the domain name
+- Did I mention creating tests?
 
 # Contributing
 
