@@ -1,0 +1,9 @@
+{
+  "cookie_name": "ab_test_cookie",
+  "experiment_domain_name": "www.maxrodrigo.com",
+  "experiment_traffic": "0.5",
+  "req_cond_host": "www.maxrodrigo.com",
+  "req_cond_uri": "/",
+  "source_experiment": "dLkfiXihWdyHe2Wi",
+  "source_main": "JDWJZCCWSx9LUrkM"
+}
