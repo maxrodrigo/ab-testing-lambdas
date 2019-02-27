@@ -1,4 +1,6 @@
 cookie_name:
+cookie_path:
+cookie_domain:
 source_main: # Cookie value for the main sample of the experiment
 source_experiment: # Cookie value for the experiment sample
 experiment_traffic: # Experiment traffic percentage being. From 0 to 1

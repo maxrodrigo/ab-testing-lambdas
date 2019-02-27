@@ -34,6 +34,6 @@ exports.handler = (event, context, callback) => {
 
 // Add set-cookie header (including path)
 const setCookie = function(response, cookie) {
-    const cookieValue = `${cookie}; Path=/; Domain=.yourdictionary.com`;
+    const cookieValue = `${cookie}; Path={cookie_path}; Domain={cookie_domain}`;
     response.headers['set-cookie'] = [{ key: "Set-Cookie", value: cookieValue }];
 };
