@@ -13,7 +13,9 @@ exports.handler = (event, context, callback) => {
     const source = decideSource(headers);
 
     // If Source is Experiment, change Origin and Host header
-    if ( source === sourceExperiment && request.uri == '/' && headers.host[0].value == 'www.yourdictionary.com') {
+  if (source === sourceExperiment &&
+      '{req_cond_uri}'.split(',').includes(request.uri) &&
+      '{req_cond_host}'.split(',').includes(headers.host[0].value)){
         // Specify Origin
         request.origin = {
             custom: {

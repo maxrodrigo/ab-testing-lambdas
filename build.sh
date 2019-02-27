@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+shopt -s extglob
 
 #===============================================================================
 #        FILE:  build.sh
@@ -11,57 +12,52 @@
 #       NOTES:  ---
 #===============================================================================
 
-sed_placeholders(){
-  for k in "${(@k)ph}"; do
+build_folder='./dist';
+build_jsonfile=$build_folder"/build.json"
+config_file="./conf"
+
+ph_substitute(){
+  for k in "${!ph[@]}"; do
     v=${ph[$k]};
-    sed -i "" -e "s/{$k}/$v/g" $1
+    sed -i "" -e "s#{$k}#$v#g" $1
   done
 }
 
-build_folder='./dist';
-build_jsonfile=$build_folder"/build.json"
-
 # define placeholders
-typeset -A ph
-
-ph[cookie_name]='_yd_ab_source';
-ph[source_main]='G2bHPu5G';
-ph[source_experiment]='0rlHlu9d';
-ph[experiment_traffic]=0.5;
-ph[experiment_domain_name]="yourdictionary-web.s3-website-us-east-1.amazonaws.com"
+declare -A ph; while read line; do ph[${line%:*}]=${line#*:}; done < $config_file
 
 # RUN!
 echo "***************************************"
-for k in "${(@k)ph}"; do echo $k: ${ph[$k]}; done
+for k in "${!ph[@]}"; do echo $k: ${ph[$k]}; done
 echo "***************************************"
 
-read -q "response?Confirm ? [y/N] "
-case "$response" in [yY][eE][sS]|[yY])
+read -p "Confirm ? [y/N] " response
+case ${response:0:1} in [yY][eE][sS]|[yY])
   mkdir -p $build_folder;
 
-  echo "\n\nProcessing files...\n"
+  echo "Processing files..."
 
   for jsf in ./code/*.js; do
     echo "> "$(basename $jsf);
     cp $jsf $build_folder;
     built_jsf=$build_folder/$(basename $jsf);
-    sed_placeholders $built_jsf;
+    ph_substitute $built_jsf;
   done
 
   func_min=$(curl -X POST -s --data-urlencode "input@$build_folder/bookmarklet.js" https://javascript-minifier.com/raw);
   bookmarklet="javascript:"$func_min;
   echo $bookmarklet > $build_folder/bookmarklet.js;
-  echo "\nBookmarklet generated: $build_folder/bookmarklet.js"
+  echo "Bookmarklet generated: $build_folder/bookmarklet.js"
 
-  for k in "${(@k)ph}"; do
+  for k in "${!ph[@]}"; do
     v=${ph[$k]};
     build_json="$build_json\"$k\":\"$v\","
   done
   # build json and remove last comma from variables
   echo "{${build_json: : -1}}" > $build_jsonfile
-  echo "\nBuild file generated: $build_jsonfile"
+  echo "Build file generated: $build_jsonfile"
 
-  echo "\nAll done! 🍰"
+  echo "All done! 🍰"
   ;;
 *)
   echo "Nothing to do. ⭐️"

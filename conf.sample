@@ -1,0 +1,7 @@
+cookie_name:
+source_main: # Cookie value for the main sample of the experiment
+source_experiment: # Cookie value for the experiment sample
+experiment_traffic: # Experiment traffic percentage being. From 0 to 1
+experiment_domain_name: # AWS Domain name of the experiment source
+req_cond_uri: # Path conditions. Can be csv (without spaces). [/,/path,/other-path]
+req_cond_host: # Host conditions. Also can be csv
