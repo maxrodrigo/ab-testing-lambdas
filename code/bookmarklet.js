@@ -5,7 +5,7 @@
     var sb = "{source_experiment}";
     for (var i in c) {
         if (c[i].indexOf(cn) >= 0) {
-            document.cookie = cn + "=" + (c[i].indexOf(sa) >= 0 ? sb : sa) + "; Path=/; Domain=.yourdictionary.com";
+            document.cookie = cn + "=" + (c[i].indexOf(sa) >= 0 ? sb : sa) + "; Path={cookie_path}; Domain={cookie_domain}";
             break;
         }
     }
